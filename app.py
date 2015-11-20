@@ -35,17 +35,21 @@ def index():
 def alarmeQuarto1(action):
     global templateData
     global ser
+    ser.close()
 
     if action == "off":
+        ser.open()
         templateData['ativadobuttonquarto1'] = False
         templateData['statusQuarto1'] = "Desativado"
-        ser.write("<y10>")
+        ser.write("<y1000>")
+        ser.close()
     if action == "on":
+        ser.open()
         templateData['ativadobuttonquarto1'] = True
         templateData['statusQuarto1'] = "Ativado"
         ser.write("<y1255>")
-
-    ser.close()
+        ser.close()
+        
     return render_template('test.html', **templateData)
 
 

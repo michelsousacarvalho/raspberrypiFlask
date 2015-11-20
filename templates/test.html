@@ -43,8 +43,6 @@
 
     <!-- FIM COMODO QUARTO 1-->
     <!-- INICIAO COMODO Cozinha-->
-
-
     <div class="col-xs-6 col-lg-6 comodocolorescuro">
          <h2>Cozinha</h2>
             <div class="col-xs-2 col-lg-2"></div>
@@ -62,23 +60,73 @@
                 <label>Iluminação Simples</label>
                 <br>
                 {% if lampCozinha%}
-                    <input type="button" class="btn btn-danger" onclick="location.href='/quarto1Lamp/off';" value="Apagar" />
+                    <input type="button" class="btn btn-danger" onclick="location.href='/cozinhaLamp/off';" value="Apagar" />
                 {% else %}
-                    <input type="button" class="btn btn-success" onclick="location.href='/quarto1Lamp/on';" value="Acender" />
+                    <input type="button" class="btn btn-success" onclick="location.href='/cozinhaLamp/on';" value="Acender" />
                 {% endif%}
                 <br>
-                <p>Status: {{statusLampQuarto1}}</p>
+                <p>Status: {{iluminacaoCozinha}}</p>
             </div>
     </div>
-
     <!-- FIM COMODO Cozinha-->
 
-<form action="/sel" method="GET">
+ <!-- INICIAO COMODO QUARTO2-->
     <div class="col-xs-6 col-lg-6 comodocolorescuro">
-        <h2>Quarto 2</h2>
-        <input type="submit" value="Sel"></input>
+         <h2>Quarto 2</h2>
+            <div class="col-xs-2 col-lg-2"></div>
+            <div class="col-xs-10 col-lg-10">
+                <label> Controle Temperatura </label>
+                {% if temperaturaQuarto2 == 0 %}
+                    <p>Temperatura(C): </p>
+                    <input type="button" class="btn btn-success" onclick="location.href='/tempQuarto2';" value="Medir" />
+                {% else %}
+                     <p>Temperatura(C): {{temperaturaQuarto2}}</p>
+                    <input type="button" class="btn btn-success" onclick="location.href='/tempQuarto2';" value="Medir" />
+                {% endif%}
+                <br>
+                <label> Ventilador </label>
+                <br>
+                {% if ventilador%}
+                    <input type="button" class="btn btn-danger" onclick="location.href='/ventilador/off';" value="Desligar" />
+                {% else %}
+                    <input type="button" class="btn btn-success" onclick="location.href='/ventilador/on';" value="Ligar" />
+                {% endif%}
+                <br>
+                <p>Status: {{ventiladorStatus}}</p>
+                <br>
+                <label>Iluminação Simples</label>
+                <br>
+                {% if lampquarto2%}
+                    <input type="button" class="btn btn-danger" onclick="location.href='/cozinhaLamp/off';" value="Apagar" />
+                {% else %}
+                    <input type="button" class="btn btn-success" onclick="location.href='/cozinhaLamp/on';" value="Acender" />
+                {% endif%}
+                <br>
+                <p>Status: {{statusLampQuarto2}}</p>
+            </div>
     </div>
-</form>
+    <!-- FIM COMODO QUARTO2-->
+
+
+        <!-- INICIAO COMODO Banheiro-->
+    <div class="col-xs-6 col-lg-6 comodocolorescuro">
+         <h2>Banheiro</h2>
+            <div class="col-xs-2 col-lg-2"></div>
+            <div class="col-xs-10 col-lg-10">
+                <label> Controle Iluminação Rápida </label>
+                <br>
+                <label> Iluminação  </label>
+                {% if lampBanheiro%}
+                    <input type="button" class="btn btn-danger" onclick="location.href='/banheiroLamp/off';" value="Desativar" />
+                {% else %}
+                    <input type="button" class="btn btn-success" onclick="location.href='/banheiroLamp/on';" value="Ativar" />
+                {% endif%}
+                <br>
+                <p>Status: {{statusLampBanheiro}}</p>
+            </div>
+    </div>
+    <!-- FIM COMODO Banheiro-->
+
 
 <!--</div>-->
     <!--<div class="row"></div>-->

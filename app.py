@@ -47,9 +47,10 @@ def alarmeQuarto1(action):
         ser.open()
         templateData['ativadobuttonquarto1'] = True
         templateData['statusQuarto1'] = "Ativado"
-        ser.write("<y1255>")
+        ser.write("<y2>")
+        #  ser.write("<y1255>")
         ser.close()
-        
+
     return render_template('test.html', **templateData)
 
 

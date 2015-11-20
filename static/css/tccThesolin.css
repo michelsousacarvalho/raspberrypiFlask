@@ -1,0 +1,26 @@
+.comodocolorescuro{
+    background-color: #1aa3ff;
+}
+.comodocolorclaro{
+    background-color: #66c2ff;
+}
+
+.btnTcc li {
+    display : inline-block;
+    border-style : solid;
+    boreder-top : none;
+    border-bottom : none;
+    margin-right : -8px;
+    padding-top : 0px;
+    padding-bottom : 0px;
+}
+
+.btnTcc li a {
+    display: block;
+    padding-left : 25px;
+    padding-right : 25px;
+}
+
+.btnTcc li a:hover{
+    background-color:#00FFFF;
+}

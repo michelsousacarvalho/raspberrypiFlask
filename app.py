@@ -48,7 +48,7 @@ def index():
 
 @app.route('/test')
 def test():
-    print request.form("a")
+    print request.form.get("a")
     return render_template('test.html', **templateData)
 
 @app.route('/quarto1Alarme/<action>')

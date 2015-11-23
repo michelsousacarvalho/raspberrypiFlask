@@ -74,10 +74,10 @@ def alarmeQuarto1(action):
 def quartolamp(action):
     global  templateData
     global ser1
-    global ser2
+    # global ser2
     ser1.close()
-    ser2.close()
-    time.sleep(0.2)
+    # ser2.close()
+    # time.sleep(0.2)
 
     if action == "off":
         ser1.open()

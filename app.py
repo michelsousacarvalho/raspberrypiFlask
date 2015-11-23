@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 import time
 import serial
+from flask import request
 
 app = Flask(__name__)
 
@@ -45,6 +46,9 @@ ser2.close()
 def index():
     return render_template('test.html', **templateData)
 
+@app.route('/test')
+def test():
+    print request.form("a")
 
 @app.route('/quarto1Alarme/<action>')
 def alarmeQuarto1(action):

@@ -153,13 +153,39 @@
                 <br>
                 <label>Controle de luminosidade</label>
                 <br>
-                {% if lampCozinha%}
-                    <input type="button" class="btn btn-danger" onclick="location.href='/cozinhaLamp/off';" value="Apagar" />
-                {% else %}
-                    <input type="button" class="btn btn-success" onclick="location.href='/cozinhaLamp/on';" value="Acender" />
+                {% if statusDimmerSala == "Desligado"%}
+                    <input type="button" class="btn btn-success" onclick="location.href='/salaLuminosidaLamp/off';" value="Desligado" />
+                    <input type="button" class="btn btn-danger" onclick="location.href='/salaLuminosidaLamp/25';" value="25" />
+                    <input type="button" class="btn btn-danger" onclick="location.href='/salaLuminosidaLamp/50';" value="50" />
+                    <input type="button" class="btn btn-danger" onclick="location.href='/salaLuminosidaLamp/75';" value="75" />
+                    <input type="button" class="btn btn-danger" onclick="location.href='/salaLuminosidaLamp/100';" value="100" />
+                {% elif statusDimmerSala == "25%"%}
+                    <input type="button" class="btn btn-danger" onclick="location.href='/salaLuminosidaLamp/off';" value="Desligado" />
+                    <input type="button" class="btn btn-success" onclick="location.href='/salaLuminosidaLamp/25';" value="25" />
+                    <input type="button" class="btn btn-danger" onclick="location.href='/salaLuminosidaLamp/50';" value="50" />
+                    <input type="button" class="btn btn-danger" onclick="location.href='/salaLuminosidaLamp/75';" value="75" />
+                    <input type="button" class="btn btn-danger" onclick="location.href='/salaLuminosidaLamp/100';" value="100" />
+                {% elif statusDimmerSala == "50%"%}
+                    <input type="button" class="btn btn-danger" onclick="location.href='/salaLuminosidaLamp/off';" value="Desligado" />
+                    <input type="button" class="btn btn-danger" onclick="location.href='/salaLuminosidaLamp/25';" value="25" />
+                    <input type="button" class="btn btn-success" onclick="location.href='/salaLuminosidaLamp/50';" value="50" />
+                    <input type="button" class="btn btn-danger" onclick="location.href='/salaLuminosidaLamp/75';" value="75" />
+                    <input type="button" class="btn btn-danger" onclick="location.href='/salaLuminosidaLamp/100';" value="100" />
+                {% elif statusDimmerSala == "75%"%}
+                    <input type="button" class="btn btn-danger" onclick="location.href='/salaLuminosidaLamp/off';" value="Desligado" />
+                    <input type="button" class="btn btn-danger" onclick="location.href='/salaLuminosidaLamp/25';" value="25" />
+                    <input type="button" class="btn btn-danger" onclick="location.href='/salaLuminosidaLamp/50';" value="50" />
+                    <input type="button" class="btn btn-success" onclick="location.href='/salaLuminosidaLamp/75';" value="75" />
+                    <input type="button" class="btn btn-danger" onclick="location.href='/salaLuminosidaLamp/100';" value="100" />
+                {% elif statusDimmerSala == "100%"%}
+                    <input type="button" class="btn btn-danger" onclick="location.href='/salaLuminosidaLamp/off';" value="Desligado" />
+                    <input type="button" class="btn btn-danger" onclick="location.href='/salaLuminosidaLamp/25';" value="25" />
+                    <input type="button" class="btn btn-danger" onclick="location.href='/salaLuminosidaLamp/50';" value="50" />
+                    <input type="button" class="btn btn-danger" onclick="location.href='/salaLuminosidaLamp/75';" value="75" />
+                    <input type="button" class="btn btn-success" onclick="location.href='/salaLuminosidaLamp/100';" value="100" />
                 {% endif%}
                 <br>
-                <p>Status: {{iluminacaoCozinha}}</p>
+                <p>Status: {{statusDimmerSala}}</p>
             </div>
     </div>
     <!-- FIM COMODO SALA-->

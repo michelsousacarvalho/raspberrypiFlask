@@ -21,6 +21,8 @@ templateData = {
         'statusLapBanheiro': "Apagado",
         'lampSala': False,
         'statusLapSala': "Apagado",
+        'dimmerSala': False,
+        'statusDimmerSala':'Desligado',
         'portao': False,
         'portaoStatus':"Fechado",
         'garagemLamp':False,
@@ -166,12 +168,24 @@ def salaLamp(action):
 def salaLuminosidadeLamp(action):
     global templateData
     if action == "off":
-        templateData['lampSala'] = False
-        templateData['statusLampSala'] = "Apagado"
+        templateData['dimmerSala'] = False
+        templateData['statusDimmerSala'] = "Desligado"
 
-    if action == "on":
-        templateData['lampSala'] = True
-        templateData['statusLampSala'] = "Aceso"
+    if action == "25":
+        templateData['dimmerSala'] = True
+        templateData['statusDimmerSala'] = "25%"
+
+    if action == "50":
+        templateData['dimmerSala'] = True
+        templateData['statusDimmerSala'] = "50%"
+
+    if action == "75":
+        templateData['dimmerSala'] = True
+        templateData['statusDimmerSala'] = "75%"
+
+    if action == "100":
+        templateData['dimmerSala'] = True
+        templateData['statusDimmerSala'] = "100%"
 
     return render_template('test.html', **templateData)
 

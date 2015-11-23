@@ -80,11 +80,11 @@ def quartolamp(action):
     time.sleep(0.2)
 
     if action == "off":
-        ser2.open()
+        ser1.open()
         templateData['lampquarto1'] = False
         templateData['statusLampQuarto1'] = "Apagado"
-        ser2.write("<y10p3>")
-        ser2.close()
+        ser1.write("<y1000p3>")
+        ser1.close()
 
 
     if action == "on":

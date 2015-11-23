@@ -73,7 +73,7 @@ def quartolamp(action):
         ser1.open()
         templateData['lampquarto1'] = False
         templateData['statusLampQuarto1'] = "Apagado"
-        ser1.write("<y10p3>")
+        ser1.write("<y10p3>/n")
         ser1.close()
 
 

@@ -31,8 +31,14 @@ templateData = {
 
 }
 
-ser1 = serial.Serial("/dev/ttyACM0", 9600)
+vel1 = 9600
+disp1 = "/dev/ttyACM0"
 
+ser1 = serial.Serial(disp1, vel1)
+ser2 = serial.Serial(disp1, vel1)
+
+ser1.close()
+ser2.close()
 
 
 @app.route('/')
@@ -68,22 +74,24 @@ def alarmeQuarto1(action):
 def quartolamp(action):
     global  templateData
     global ser1
+    global ser2
     ser1.close()
+    ser2.close()
     time.sleep(0.2)
 
     if action == "off":
-        ser1.open()
+        ser2.open()
         templateData['lampquarto1'] = False
         templateData['statusLampQuarto1'] = "Apagado"
-        ser1.write("<y1255p3>")
-        ser1.close()
+        ser2.write("<y10p3>")
+        ser2.close()
 
 
     if action == "on":
         ser1.open()
         templateData['lampquarto1'] = True
         templateData['statusLampQuarto1'] = "Aceso"
-        ser1.write("<y1000p3>")
+        ser1.write("<y1255p3>")
         ser1.close()
 
 

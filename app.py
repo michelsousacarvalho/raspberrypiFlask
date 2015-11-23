@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+import time
 import serial
 
 app = Flask(__name__)
@@ -68,12 +69,13 @@ def quartolamp(action):
     global  templateData
     global ser1
     ser1.close()
+    time.sleep(0.2)
 
     if action == "off":
         ser1.open()
         templateData['lampquarto1'] = False
         templateData['statusLampQuarto1'] = "Apagado"
-        ser1.write("<y10p3>/n")
+        ser1.write("<y10p3>")
         ser1.close()
 
 

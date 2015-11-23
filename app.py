@@ -81,7 +81,7 @@ def quartolamp(action):
 
     if action == "off":
         ser1.open()
-        ser1.write("<y10p3>")
+        ser1.write("<y11p3>")
         ser1.close()
         templateData['lampquarto1'] = False
         templateData['statusLampQuarto1'] = "Apagado"
@@ -100,8 +100,11 @@ def quartolamp(action):
 @app.route('/cozinhaAlarme/<action>')
 def alarmeCozinha(action):
     global  templateData
+    global ser1
 
     if action == "off":
+        ser1.open()
+
         templateData['alarmeCozinha'] = False
         templateData['statusAlarmeCozinha'] = "Desativado"
     if action == "on":

@@ -46,9 +46,10 @@ ser2.close()
 def index():
     return render_template('test.html', **templateData)
 
-@app.route('/test')
+@app.route('/test',  methods=['POST'])
 def test():
     print request.form.get("a")
+    print request.form("a")
     return render_template('test.html', **templateData)
 
 @app.route('/quarto1Alarme/<action>')

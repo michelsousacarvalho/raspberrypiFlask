@@ -18,11 +18,17 @@ templateData = {
         'lampquarto2': False,
         'statusLampQuarto2': "Apagado",
         'lampBanheiro': False,
-        'statusLapBanheiro': "Apagado"
+        'statusLapBanheiro': "Apagado",
+        'lampSala': False,
+        'statusLapSala': "Apagado",
+        'portao': False,
+        'portaoStatus':"Fechado",
+        'garagemLamp':False,
+        'statusGaragemLamp': "Apagado"
 
 }
 
-ser = serial.Serial("/dev/ttyACM0", 9600)
+# ser = serial.Serial("/dev/ttyACM0", 9600)
 
 
 
@@ -34,22 +40,22 @@ def index():
 @app.route('/quarto1Alarme/<action>')
 def alarmeQuarto1(action):
     global templateData
-    global ser
-    ser.close()
+    # global ser
+    # ser.close()
 
     if action == "off":
-        ser.open()
+        # ser.open()
         templateData['ativadobuttonquarto1'] = False
         templateData['statusQuarto1'] = "Desativado"
         ser.write("<y1000>")
-        ser.close()
+        # ser.close()
     if action == "on":
-        ser.open()
+        # ser.open()
         templateData['ativadobuttonquarto1'] = True
         templateData['statusQuarto1'] = "Ativado"
         ser.write("<y2>")
         #  ser.write("<y1255>")
-        ser.close()
+        # ser.close()
 
     return render_template('test.html', **templateData)
 
@@ -142,9 +148,60 @@ def banheirolamp(action):
     return render_template('test.html', **templateData)
 
 
-@app.route('/sel')
-def optionSel():
-    return 'sel'
+@app.route('/salaLamp/<action>')
+def salaLamp(action):
+    global templateData
+    if action == "off":
+        templateData['lampSala'] = False
+        templateData['statusLampSala'] = "Apagado"
+
+    if action == "on":
+        templateData['lampSala'] = True
+        templateData['statusLampSala'] = "Aceso"
+
+    return render_template('test.html', **templateData)
+
+
+@app.route('/salaLuminosidaLamp/<action>')
+def salaLuminosidadeLamp(action):
+    global templateData
+    if action == "off":
+        templateData['lampSala'] = False
+        templateData['statusLampSala'] = "Apagado"
+
+    if action == "on":
+        templateData['lampSala'] = True
+        templateData['statusLampSala'] = "Aceso"
+
+    return render_template('test.html', **templateData)
+
+@app.route('/portao/<action>')
+def portao(action):
+    global templateData
+    if action == "off":
+        templateData['portao'] = False
+        templateData['portaoStatus'] = "Fechado"
+
+    if action == "on":
+        templateData['portao'] = True
+        templateData['portaoStatus'] = "Aberto"
+
+    return render_template('test.html', **templateData)
+
+
+@app.route('/garageLamp/<action>')
+def garagemLamp(action):
+    global templateData
+    if action == "off":
+        templateData['garagemLamp'] = False
+        templateData['statusGaragemLamp'] = "Apagado"
+
+    if action == "on":
+        templateData['garagemLamp'] = True
+        templateData['statusGaragemLamp'] = "Aceso"
+
+    return render_template('test.html', **templateData)
+
 
 
 if __name__ == '__main__':

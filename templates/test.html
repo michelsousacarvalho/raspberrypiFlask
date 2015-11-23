@@ -101,8 +101,12 @@
                 {% else %}
                     <input type="button" class="btn btn-success" onclick="location.href='/cozinhaLamp/on';" value="Acender" />
                 {% endif%}
-                <br>
                 <p>Status: {{statusLampQuarto2}}</p>
+                <p></p>
+                <p></p>
+                <p></p>
+                <p></p>
+                <p></p>
             </div>
     </div>
     <!-- FIM COMODO QUARTO2-->
@@ -111,6 +115,7 @@
         <!-- INICIAO COMODO Banheiro-->
     <div class="col-xs-6 col-lg-6 comodocolorclaro">
          <h2>Banheiro</h2>
+        <br><br><br><br>
             <div class="col-xs-2 col-lg-2"></div>
             <div class="col-xs-10 col-lg-10">
                 <label> Controle Iluminação Rápida </label>
@@ -124,26 +129,68 @@
                 <br>
                 <p>Status: {{statusLampBanheiro}}</p>
             </div>
-        <br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br><br>
+        <p></p>
+        <p></p>
     </div>
     <!-- FIM COMODO Banheiro-->
 
 
-
-    <form action="/sel" method="GET">
+     <!-- INICIAO COMODO SALA-->
     <div class="col-xs-6 col-lg-6 comodocolorclaro">
-        <h2>Sala</h2>
-        <input type="submit" value="Sel"></input>
+         <h2>Sala</h2>
+            <div class="col-xs-2 col-lg-2"></div>
+            <div class="col-xs-10 col-lg-10">
+                <label> Controle iluminação Rapida </label>
+                <br>
+                {% if lampSala%}
+                    <input type="button" class="btn btn-danger" onclick="location.href='/salaLamp/off';" value="Desativar" />
+                {% else %}
+                    <input type="button" class="btn btn-success" onclick="location.href='/salaLamp/on';" value="Ativar" />
+                {% endif%}
+                <br>
+                <p>Status: {{statusLampSala}}</p>
+                <br>
+                <label>Controle de luminosidade</label>
+                <br>
+                {% if lampCozinha%}
+                    <input type="button" class="btn btn-danger" onclick="location.href='/cozinhaLamp/off';" value="Apagar" />
+                {% else %}
+                    <input type="button" class="btn btn-success" onclick="location.href='/cozinhaLamp/on';" value="Acender" />
+                {% endif%}
+                <br>
+                <p>Status: {{iluminacaoCozinha}}</p>
+            </div>
     </div>
-</form>
+    <!-- FIM COMODO SALA-->
 
-    <form action="/sel" method="GET">
+    <!-- INICIAO COMODO garagem-->
     <div class="col-xs-6 col-lg-6 comodocolorescuro">
-        <h2>Garagem</h2>
-        <input type="submit" value="Sel"></input>
+         <h2>Garagem</h2>
+            <div class="col-xs-2 col-lg-2"></div>
+            <div class="col-xs-10 col-lg-10">
+                <label> Controle Portao </label>
+                <br>
+                {% if portao%}
+                    <input type="button" class="btn btn-danger" onclick="location.href='/portao/off';" value="Fechar" />
+                {% else %}
+                    <input type="button" class="btn btn-success" onclick="location.href='/portao/on';" value="Abrir" />
+                {% endif%}
+                <br>
+                <p>Status: {{portaoStatus}}</p>
+                <br>
+                <label>Iluminação</label>
+                <br>
+                {% if garagemLamp%}
+                    <input type="button" class="btn btn-danger" onclick="location.href='/garageLamp/off';" value="Apagar" />
+                {% else %}
+                    <input type="button" class="btn btn-success" onclick="location.href='/garageLamp/on';" value="Acender" />
+                {% endif%}
+                <br>
+                <p>Status: {{statusGaragemLamp}}</p>
+            </div>
     </div>
-</form>
-
+    <!-- FIM COMODO Garagem-->
 
 </div>
     </div>

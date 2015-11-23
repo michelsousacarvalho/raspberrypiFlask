@@ -60,11 +60,11 @@ def alarmeQuarto1(action):
         #ser1.write("<>")
         #ser1.close()
     if action == "on":
-        ser1.open()
+        #ser1.open()
         templateData['ativadobuttonquarto1'] = True
         templateData['statusQuarto1'] = "Ativado"
-        ser1.write("<y2>/n")
-        ser1.close()
+        #ser1.write("<y2>/n")
+        #ser1.close()
 
 
     return render_template('test.html', **templateData)
@@ -80,20 +80,19 @@ def quartolamp(action):
     time.sleep(0.2)
 
     if action == "off":
-        ser1.close()
         ser1.open()
-        templateData['lampquarto1'] = True
-        templateData['statusLampQuarto1'] = "Apagado"
         ser1.write("<y1000p3>")
         ser1.close()
+        templateData['lampquarto1'] = True
+        templateData['statusLampQuarto1'] = "Apagado"
 
 
     if action == "on":
         ser1.open()
-        templateData['lampquarto1'] = True
-        templateData['statusLampQuarto1'] = "Aceso"
         ser1.write("<y1255p3>")
         ser1.close()
+        templateData['lampquarto1'] = True
+        templateData['statusLampQuarto1'] = "Aceso"
 
 
     return render_template('test.html', **templateData)
@@ -215,7 +214,14 @@ def salaLuminosidadeLamp(action):
 @app.route('/portao/<action>')
 def portao(action):
     global templateData
+    global ser1
+    ser1.close()
+
+
     if action == "off":
+        ser1.open()
+        ser1.write("<y2>/n")
+        ser1.close()
         templateData['portao'] = False
         templateData['portaoStatus'] = "Fechado"
 

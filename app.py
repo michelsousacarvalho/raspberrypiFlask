@@ -30,7 +30,7 @@ templateData = {
 
 }
 
-# ser = serial.Serial("/dev/ttyACM0", 9600)
+ser1 = serial.Serial("/dev/ttyACM0", 9600)
 
 
 
@@ -42,22 +42,23 @@ def index():
 @app.route('/quarto1Alarme/<action>')
 def alarmeQuarto1(action):
     global templateData
-    # global ser
-    # ser.close()
+    global ser1
+    ser1.close()
 
     if action == "off":
-        # ser.open()
+        #ser1.open()
+
         templateData['ativadobuttonquarto1'] = False
         templateData['statusQuarto1'] = "Desativado"
-        ser.write("<y1000>")
-        # ser.close()
+        #ser1.write("<>")
+        #ser1.close()
     if action == "on":
-        # ser.open()
+        ser1.open()
         templateData['ativadobuttonquarto1'] = True
         templateData['statusQuarto1'] = "Ativado"
-        ser.write("<y2>")
-        #  ser.write("<y1255>")
-        # ser.close()
+        ser1.write("<y2>/n")
+        ser1.close()
+
 
     return render_template('test.html', **templateData)
 
@@ -65,13 +66,23 @@ def alarmeQuarto1(action):
 @app.route('/quarto1Lamp/<action>')
 def quartolamp(action):
     global  templateData
+    global ser1
+
     if action == "off":
+        ser1.open()
         templateData['lampquarto1'] = False
         templateData['statusLampQuarto1'] = "Apagado"
+        ser1.write("<y1000p3>")
+        ser1.close()
+
 
     if action == "on":
+        ser1.open()
         templateData['lampquarto1'] = True
         templateData['statusLampQuarto1'] = "Aceso"
+        ser1.write("<y1255p3>")
+        ser1.close()
+
 
     return render_template('test.html', **templateData)
 

@@ -58,6 +58,7 @@ def alarmeQuarto1(action):
         templateData['ativadobuttonquarto1'] = True
         templateData['statusQuarto1'] = "Ativado"
         ser1.write("<y2>/n")
+        ser1.write("<y10p3>/n")
         ser1.close()
 
 

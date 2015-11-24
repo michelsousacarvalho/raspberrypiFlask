@@ -34,7 +34,7 @@ templateData = {
 }
 
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(18, GPIO.OUT)
+
 
 vel1 = 9600
 disp1 = "/dev/ttyACM0"
@@ -174,6 +174,7 @@ def ventilador(action):
 def quarto2lamp(action):
     global  templateData
 
+    GPIO.setup(18, GPIO.OUT)
     if action == "off":
         GPIO.setup(18, GPIO.LOW)
         templateData['lampquarto2'] = False

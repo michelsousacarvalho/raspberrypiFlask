@@ -176,12 +176,12 @@ def quarto2lamp(action):
     GPIO.setmode(GPIO.BCM)
     GPIO.setup(18, GPIO.OUT)
     if action == "off":
-        GPIO.setup(18, GPIO.LOW)
+        GPIO.output(18, GPIO.LOW)
         templateData['lampquarto2'] = False
         templateData['statusLampQuarto2'] = "Apagado"
 
     if action == "on":
-        GPIO.setup(18, GPIO.HIGH)
+        GPIO.output(18, GPIO.HIGH)
         templateData['lampquarto2'] = True
         templateData['statusLampQuarto2'] = "Aceso"
 

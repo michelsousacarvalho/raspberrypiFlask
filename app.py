@@ -279,14 +279,14 @@ def garagemLamp(action):
     return render_template('test.html', **templateData)
 
 
+while (1):
+    print "while"
+    if GPIO.event_detected(2) == True:
+        print "Detect"
+        if GPIO.input(18) == 1:
+            GPIO.output(18, GPIO.LOW)
+        else:
+            GPIO.output(18, GPIO.HIGH)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=80)
-    while (1):
-        if GPIO.event_detected(2) == True:
-            print "Detect"
-            if GPIO.input(18) == 1:
-                GPIO.output(18, GPIO.LOW)
-            else:
-                GPIO.output(18, GPIO.HIGH)
-        

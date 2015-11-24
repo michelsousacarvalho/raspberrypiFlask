@@ -48,9 +48,9 @@ def index():
 
 @app.route('/test',  methods=['POST'])
 def test():
-
+    command = request.form.get("a")
     ser1.open()
-    ser1.write(request.form.get("a"));
+    ser1.write(command);
     ser1.close()
 
     return render_template('test.html', **templateData)

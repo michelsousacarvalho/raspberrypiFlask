@@ -40,6 +40,15 @@ GPIO.setup(2, GPIO.IN)
 GPIO.add_event_detect(2, GPIO.RISING)
 
 
+while (1):
+    print "while"
+    if GPIO.event_detected(2) == True:
+        print "Detect"
+        if GPIO.input(18) == 1:
+            GPIO.output(18, GPIO.LOW)
+        else:
+            GPIO.output(18, GPIO.HIGH)
+
 
 vel1 = 9600
 disp1 = "/dev/ttyACM0"
@@ -280,14 +289,7 @@ def garagemLamp(action):
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=80)
-    while (1):
-        print "while"
-        if GPIO.event_detected(2) == True:
-            print "Detect"
-            if GPIO.input(18) == 1:
-                GPIO.output(18, GPIO.LOW)
-            else:
-                GPIO.output(18, GPIO.HIGH)
+
 
 
 

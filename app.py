@@ -3,7 +3,8 @@ import time
 import serial
 from flask import request
 import RPi.GPIO as GPIO
-from multiprocessing import Process
+import threading
+from threading import Thread
 
 app = Flask(__name__)
 
@@ -292,8 +293,9 @@ def buttonOnLamp():
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=80)
-    p1 = Process(target=buttonOnLamp)
-    p1.start()
-    p1.join()
+    Thread(target = buttonOnLamp).start()
+    # p1 = Process(target=buttonOnLamp)
+    # p1.start()
+    # p1.join()
 
 

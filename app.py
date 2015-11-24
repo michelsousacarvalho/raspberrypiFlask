@@ -283,7 +283,7 @@ def garagemLamp(action):
 
 def buttonOnLamp():
     while (1):
-        print "while"
+        # print "while"
         if GPIO.event_detected(2) == True:
             print "Detect"
             if GPIO.input(18) == 1:

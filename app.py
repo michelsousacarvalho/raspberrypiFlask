@@ -94,6 +94,7 @@ def quartolamp(action):
         ser1.open()
         ser1.write("<y10p3>")
         ser1.close()
+        time.sleep(0.5)
         ser1.open()
         ser1.write("<y10p3>")
         ser1.close()

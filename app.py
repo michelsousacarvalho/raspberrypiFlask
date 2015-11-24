@@ -2,6 +2,7 @@ from flask import Flask, render_template
 import time
 import serial
 from flask import request
+import RPi.GPIO as GPIO
 
 app = Flask(__name__)
 
@@ -31,6 +32,9 @@ templateData = {
         'statusGaragemLamp': "Apagado"
 
 }
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(18, GPIO.OUT)
 
 vel1 = 9600
 disp1 = "/dev/ttyACM0"
@@ -115,7 +119,6 @@ def quartolamp(action):
 
 
     return render_template('test.html', **templateData)
-
 @app.route('/cozinhaAlarme/<action>')
 def alarmeCozinha(action):
     global  templateData
@@ -170,11 +173,14 @@ def ventilador(action):
 @app.route('/quarto2Lamp/<action>')
 def quarto2lamp(action):
     global  templateData
+
     if action == "off":
+        GPIO.setup(18, GPIO.LOW)
         templateData['lampquarto2'] = False
         templateData['statusLampQuarto2'] = "Apagado"
 
     if action == "on":
+        GPIO.setup(18, GPIO.HIGH)
         templateData['lampquarto2'] = True
         templateData['statusLampQuarto2'] = "Aceso"
 

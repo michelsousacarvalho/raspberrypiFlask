@@ -292,8 +292,9 @@ def buttonOnLamp():
                 GPIO.output(18, GPIO.HIGH)
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=80)
-    Thread(target = buttonOnLamp).start()
+    app.run(debug=True, host='0.0.0.0', port=5000)
+    buttonOnLamp()
+    # Thread(target = buttonOnLamp).start()
     # p1 = Process(target=buttonOnLamp)
     # p1.start()
     # p1.join()

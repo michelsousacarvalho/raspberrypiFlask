@@ -33,7 +33,9 @@ templateData = {
 
 }
 
-
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(18, GPIO.OUT)
+GPIO.setwarnings(False)
 
 
 vel1 = 9600
@@ -173,8 +175,7 @@ def ventilador(action):
 @app.route('/quarto2Lamp/<action>')
 def quarto2lamp(action):
     global  templateData
-    GPIO.setmode(GPIO.BCM)
-    GPIO.setup(18, GPIO.OUT)
+
     if action == "off":
         GPIO.output(18, GPIO.LOW)
         templateData['lampquarto2'] = False

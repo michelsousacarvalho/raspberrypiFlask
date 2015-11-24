@@ -49,11 +49,12 @@ def index():
 @app.route('/test',  methods=['POST'])
 def test():
     command = request.form.get("a")
-    print(command)
-    ser1.open()
-    ser1.write(command);
-    ser1.close()
 
+    stringcommand = str(command)
+    ser1.open()
+    ser1.write(stringcommand);
+    ser1.close()
+    print(stringcommand)
     return render_template('test.html', **templateData)
 
 @app.route('/quarto1Alarme/<action>')

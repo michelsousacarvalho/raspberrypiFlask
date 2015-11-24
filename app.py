@@ -103,22 +103,21 @@ def quartolamp(action):
         ser1.open()
         ser1.write("<y10p3>")
         ser1.close()
-        time.sleep(0.5)
-        ser1.open()
-        ser1.write("<y10p3>")
-        ser1.close()
+        # time.sleep(0.5)
+        # ser1.open()
+        # ser1.write("<y10p3>")
+        # ser1.close()
         templateData['lampquarto1'] = False
         templateData['statusLampQuarto1'] = "Apagado"
-
 
     if action == "on":
         ser1.open()
         ser1.write("<y1255p3>")
         ser1.close()
-        time.sleep(0.5)
-        ser1.open()
-        ser1.write("<y1255p3>")
-        ser1.close()
+        # time.sleep(0.5)
+        # ser1.open()
+        # ser1.write("<y1255p3>")
+        # ser1.close()
         templateData['lampquarto1'] = True
         templateData['statusLampQuarto1'] = "Aceso"
 

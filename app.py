@@ -280,12 +280,6 @@ def garagemLamp(action):
 
     return render_template('test.html', **templateData)
 
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=80)
-    p1 = Process(target=buttonOnLamp)
-    p1.start()
-    p1.join()
-    
 def buttonOnLamp():
     while (1):
         print "while"
@@ -295,3 +289,11 @@ def buttonOnLamp():
                 GPIO.output(18, GPIO.LOW)
             else:
                 GPIO.output(18, GPIO.HIGH)
+
+if __name__ == '__main__':
+    app.run(debug=True, host='0.0.0.0', port=80)
+    p1 = Process(target=buttonOnLamp)
+    p1.start()
+    p1.join()
+
+

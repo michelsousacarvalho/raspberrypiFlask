@@ -34,8 +34,11 @@ templateData = {
 }
 
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(18, GPIO.OUT)
 GPIO.setwarnings(False)
+GPIO.setup(18, GPIO.OUT)
+GPIO.setup(2, GPIO.IN)
+GPIO.add_event_detect(2, GPIO.RISING)
+
 
 
 vel1 = 9600
@@ -279,5 +282,11 @@ def garagemLamp(action):
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=80)
-
-
+    while (1):
+        if GPIO.event_detected(2) == True:
+            print "Detect"
+            if GPIO.input(18) == 1:
+                GPIO.output(18, GPIO.LOW)
+            else:
+                GPIO.output(18, GPIO.HIGH)
+        

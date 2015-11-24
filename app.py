@@ -3,8 +3,7 @@ import time
 import serial
 from flask import request
 import RPi.GPIO as GPIO
-import threading
-from threading import Thread
+
 
 app = Flask(__name__)
 
@@ -35,14 +34,6 @@ templateData = {
 
 }
 
-GPIO.setmode(GPIO.BCM)
-GPIO.setwarnings(False)
-GPIO.setup(18, GPIO.OUT)
-GPIO.setup(2, GPIO.IN)
-GPIO.add_event_detect(2, GPIO.RISING)
-
-
-
 
 vel1 = 9600
 disp1 = "/dev/ttyACM0"
@@ -52,6 +43,12 @@ ser2 = serial.Serial(disp1, vel1)
 
 ser1.close()
 ser2.close()
+
+# GPIO.setmode(GPIO.BCM)
+# GPIO.setwarnings(False)
+# GPIO.setup(18, GPIO.OUT)
+# GPIO.setup(2, GPIO.IN)
+# GPIO.add_event_detect(2, GPIO.RISING)
 
 
 @app.route('/')
@@ -281,22 +278,8 @@ def garagemLamp(action):
 
     return render_template('test.html', **templateData)
 
-# def buttonOnLamp():
-#     while (1):
-#         # print "while"
-#         if GPIO.event_detected(2) == True:
-#             print "Detect"
-#             if GPIO.input(18) == 1:
-#                 GPIO.output(18, GPIO.LOW)
-#             else:
-#                 GPIO.output(18, GPIO.HIGH)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=80)
-
-    # Thread(target = buttonOnLamp).start()
-    # p1 = Process(target=buttonOnLamp)
-    # p1.start()
-    # p1.join()
 
 

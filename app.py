@@ -265,23 +265,50 @@ def salaLamp(action):
 @app.route('/salaLuminosidaLamp/<action>')
 def salaLuminosidadeLamp(action):
     global templateData
+    global ser1
+
     if action == "off":
+        ser1.open()
+        time.sleep(0.3)
+        ser1.write("<y10p11>")
+        time.sleep(0.3)
+        ser1.close()
         templateData['dimmerSala'] = False
         templateData['statusDimmerSala'] = "Desligado"
 
     if action == "25":
+        ser1.open()
+        time.sleep(0.3)
+        ser1.write("<y130p11>")
+        time.sleep(0.3)
+        ser1.close()
         templateData['dimmerSala'] = True
         templateData['statusDimmerSala'] = "25%"
 
     if action == "50":
+        ser1.open()
+        time.sleep(0.3)
+        ser1.write("<y100p11>")
+        time.sleep(0.3)
+        ser1.close()
         templateData['dimmerSala'] = True
         templateData['statusDimmerSala'] = "50%"
 
     if action == "75":
+        ser1.open()
+        time.sleep(0.3)
+        ser1.write("<y170p11>")
+        time.sleep(0.3)
+        ser1.close()
         templateData['dimmerSala'] = True
         templateData['statusDimmerSala'] = "75%"
 
     if action == "100":
+        ser1.open()
+        time.sleep(0.3)
+        ser1.write("<y1255p11>")
+        time.sleep(0.3)
+        ser1.close()
         templateData['dimmerSala'] = True
         templateData['statusDimmerSala'] = "100%"
 
@@ -293,16 +320,23 @@ def salaLuminosidadeLamp(action):
 def portao(action):
     global templateData
     global ser1
-    ser1.close()
+
 
     if action == "off":
         ser1.open()
-        ser1.write("<y2>/n")
+        time.sleep(0.3)
+        ser1.write("<y2>")
+        time.sleep(0.3)
         ser1.close()
         templateData['portao'] = False
         templateData['portaoStatus'] = "Fechado"
 
     if action == "on":
+        ser1.open()
+        time.sleep(0.3)
+        ser1.write("<y2>")
+        time.sleep(0.3)
+        ser1.close()
         templateData['portao'] = True
         templateData['portaoStatus'] = "Aberto"
 

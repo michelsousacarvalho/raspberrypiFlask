@@ -67,8 +67,12 @@ def rotina():
     global templateData
     if GPIO.event_detected(touch) == True:
         if GPIO.input(luzBan) == 1:
+            templateData['lampBanheiro'] = False
+            templateData['statusLampBanheiro'] = "Apagado"
             GPIO.output(luzBan, GPIO.LOW)
         else:
+            templateData['lampBanheiro'] = True
+            templateData['statusLampBanheiro'] = "Aceso"
             GPIO.output(luzBan, GPIO.HIGH)
     return render_template('test.html', **templateData)
 

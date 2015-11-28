@@ -128,6 +128,8 @@ def temperatura():
     ser1.close()
     time.sleep(0.3)
 
+    return
+
 
 
 @app.route('/')

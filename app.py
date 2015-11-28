@@ -5,6 +5,43 @@ from flask import request
 import RPi.GPIO as GPIO
 
 
+taxa = 9600
+porta0 = "/dev/ttyACM0"
+porta1 = "/dev/ttyACM1"
+
+ser0 = serial.Serial(porta0, taxa)
+ser1 = serial.Serial(porta1, taxa)
+
+ser0.close()
+ser1.close()
+
+luzQ1 = 8 #Pino fisico 8
+luzQ2 = 10 #Pino fisico 10
+luzBan = 12 #Pino fisico 12
+touch = 16 #Pino fisico 16
+
+GPIO.setmode(GPIO.BOARD)
+GPIO.setwarnings(False)
+
+#declara saidas da GPIO
+GPIO.setup(luzQ1, GPIO.OUT)
+GPIO.setup(luzQ2, GPIO.OUT)
+GPIO.setup(luzBan, GPIO.OUT)
+
+#declara entradas da GPIO
+GPIO.setup(touch, GPIO.IN)
+GPIO.add_event_detect(touch, GPIO.RISING)
+
+
+
+
+
+
+
+
+
+
+
 app = Flask(__name__)
 
 templateData = {
@@ -32,30 +69,20 @@ templateData = {
         'garagemLamp':False,
         'statusGaragemLamp': "Apagado"
 
+        if GPIO.event_detected(touch) == True:
+		# print('\n***MUDANCA DE ESTADO PORQUE***')
+		# print('     O BOTAO FOI ACIONADO')
+
+            if GPIO.input(luzBan) == 1:
+                GPIO.output(luzBan, GPIO.LOW)
+                # print('    FITA DE LED FOI APAGADA')
+            else:
+                GPIO.output(luzBan, GPIO.HIGH)
+                # print('    FITA DE LED FOI ACESA')
+
 }
 
 
-taxa = 9600
-porta0 = "/dev/ttyACM0"
-porta1 = "/dev/ttyACM1"
-
-ser1 = serial.Serial(porta0, taxa)
-ser2 = serial.Serial(porta1, taxa)
-
-ser1.close()
-ser2.close()
-
-luzQ1 = 8
-luzQ2 = 10
-luzBan = 12
-
-GPIO.setmode(GPIO.BOARD)
-GPIO.setwarnings(False)
-GPIO.setup(luzQ1, GPIO.OUT)
-GPIO.setup(luzQ2, GPIO.OUT)
-GPIO.setup(luzBan, GPIO.OUT)
-#GPIO.setup(2, GPIO.IN)
-# GPIO.add_event_detect(2, GPIO.RISING)
 
 
 @app.route('/')

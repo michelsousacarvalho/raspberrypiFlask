@@ -4,7 +4,6 @@ import serial
 from flask import request
 import RPi.GPIO as GPIO
 
-
 taxa = 9600
 porta0 = "/dev/ttyACM0"
 porta1 = "/dev/ttyACM1"
@@ -15,66 +14,60 @@ ser1 = serial.Serial(porta1, taxa)
 ser0.close()
 ser1.close()
 
-luzQ1 = 8 #Pino fisico 8
-luzQ2 = 10 #Pino fisico 10
-luzBan = 12 #Pino fisico 12
-touch = 16 #Pino fisico 16
+luzQ1 = 8  # Pino fisico 8
+luzQ2 = 10  # Pino fisico 10
+luzBan = 12  # Pino fisico 12
+touch = 16  # Pino fisico 16
 
 GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
 
-#declara saidas da GPIO
+# declara saidas da GPIO
 GPIO.setup(luzQ1, GPIO.OUT)
 GPIO.setup(luzQ2, GPIO.OUT)
 GPIO.setup(luzBan, GPIO.OUT)
 
-#declara entradas da GPIO
+# declara entradas da GPIO
 GPIO.setup(touch, GPIO.IN)
 GPIO.add_event_detect(touch, GPIO.RISING)
 
-
-
-
-
-
-
-
-
+def rotina():
+    if GPIO.event_detected(touch) == True:
+        if GPIO.input(luzBan) == 1:
+            GPIO.output(luzBan, GPIO.LOW)
+        else:
+            GPIO.output(luzBan, GPIO.HIGH)
 
 
 
 app = Flask(__name__)
 
 templateData = {
-        'ativadobuttonquarto1': False,
-        'statusQuarto1' : "Desativado",
-        'lampquarto1': False,
-        'statusLampQuarto1' : "Apagado",
-        'alarmeCozinha': False,
-        'statusAlarmeCozinha' : "Desativado",
-        'lampCozinha' : False,
-        'iluminacaoCozinha': "Apagado",
-        'temperaturaQuarto2': 0,
-        'ventilador': False,
-        'ventiladorStatus': "Desligado",
-        'lampquarto2': False,
-        'statusLampQuarto2': "Apagado",
-        'lampBanheiro': False,
-        'statusLapBanheiro': "Apagado",
-        'lampSala': False,
-        'statusLapSala': "Apagado",
-        'dimmerSala': False,
-        'statusDimmerSala':'Desligado',
-        'portao': False,
-        'portaoStatus':"Fechado",
-        'garagemLamp':False,
-        'statusGaragemLamp': "Apagado"
-
-
+    'ativadobuttonquarto1': False,
+    'statusQuarto1': "Desativado",
+    'lampquarto1': False,
+    'statusLampQuarto1': "Apagado",
+    'alarmeCozinha': False,
+    'statusAlarmeCozinha': "Desativado",
+    'lampCozinha': False,
+    'iluminacaoCozinha': "Apagado",
+    'temperaturaQuarto2': 0,
+    'ventilador': False,
+    'ventiladorStatus': "Desligado",
+    'lampquarto2': False,
+    'statusLampQuarto2': "Apagado",
+    'lampBanheiro': False,
+    'statusLapBanheiro': "Apagado",
+    'lampSala': False,
+    'statusLapSala': "Apagado",
+    'dimmerSala': False,
+    'statusDimmerSala': 'Desligado',
+    'portao': False,
+    'portaoStatus': "Fechado",
+    'garagemLamp': False,
+    'statusGaragemLamp': "Apagado"
 
 }
-
-
 
 
 @app.route('/')
@@ -82,7 +75,7 @@ def index():
     return render_template('test.html', **templateData)
 
 
-@app.route('/test',  methods=['POST'])
+@app.route('/test', methods=['POST'])
 def test():
     command = request.form.get("a")
 
@@ -95,6 +88,7 @@ def test():
     rotina()
     return render_template('test.html', **templateData)
 
+
 @app.route('/quarto1Alarme/<action>')
 def alarmeQuarto1(action):
     global templateData
@@ -102,21 +96,21 @@ def alarmeQuarto1(action):
     ser1.close()
 
     if action == "off":
-        #ser1.open()
+        # ser1.open()
 
         templateData['ativadobuttonquarto1'] = False
         templateData['statusQuarto1'] = "Desativado"
 
 
-        #ser1.write("<>")
-        #ser1.close()
+        # ser1.write("<>")
+        # ser1.close()
     if action == "on":
-        #ser1.open()
+        # ser1.open()
         templateData['ativadobuttonquarto1'] = True
         templateData['statusQuarto1'] = "Ativado"
-        #GPIO.output(8, GPIO.HIGH)
-        #ser1.write("<y2>/n")
-        #ser1.close()
+        # GPIO.output(8, GPIO.HIGH)
+        # ser1.write("<y2>/n")
+        # ser1.close()
 
     rotina()
     return render_template('test.html', **templateData)
@@ -124,7 +118,7 @@ def alarmeQuarto1(action):
 
 @app.route('/quarto1Lamp/<action>')
 def quartolamp(action):
-    global  templateData
+    global templateData
 
     if action == "off":
         templateData['lampquarto1'] = False
@@ -139,9 +133,10 @@ def quartolamp(action):
     rotina()
     return render_template('test.html', **templateData)
 
+
 @app.route('/cozinhaAlarme/<action>')
 def alarmeCozinha(action):
-    global  templateData
+    global templateData
     global ser1
 
     if action == "off":
@@ -156,13 +151,13 @@ def alarmeCozinha(action):
     rotina()
     return render_template('test.html', **templateData)
 
+
 @app.route('/cozinhaLamp/<action>')
 def cozinhalamp(action):
-    global  templateData
+    global templateData
     if action == "off":
         templateData['lampCozinha'] = False
         templateData['iluminacaoCozinha'] = "Apagado"
-
 
     if action == "on":
         templateData['lampCozinha'] = True
@@ -171,10 +166,11 @@ def cozinhalamp(action):
     rotina()
     return render_template('test.html', **templateData)
 
+
 @app.route('/tempQuarto2')
 def tempQuarto2():
     global templateData
-    templateData['temperaturaQuarto2'] = 10 #pegar retorno serial
+    templateData['temperaturaQuarto2'] = 10  # pegar retorno serial
 
     rotina()
     return render_template('test.html', **templateData)
@@ -197,22 +193,21 @@ def ventilador(action):
 
 @app.route('/quarto2Lamp/<action>')
 def quarto2lamp(action):
-    global  templateData
+    global templateData
 
     if action == "off":
-
         templateData['lampquarto2'] = False
         templateData['statusLampQuarto2'] = "Apagado"
         GPIO.output(luzQ2, GPIO.LOW)
 
     if action == "on":
-
         templateData['lampquarto2'] = True
         templateData['statusLampQuarto2'] = "Aceso"
         GPIO.output(luzQ2, GPIO.HIGH)
 
     rotina()
     return render_template('test.html', **templateData)
+
 
 @app.route('/banheiroLamp/<action>')
 def banheirolamp(action):
@@ -272,12 +267,12 @@ def salaLuminosidadeLamp(action):
     rotina()
     return render_template('test.html', **templateData)
 
+
 @app.route('/portao/<action>')
 def portao(action):
     global templateData
     global ser1
     ser1.close()
-
 
     if action == "off":
         ser1.open()
@@ -309,13 +304,7 @@ def garagemLamp(action):
     return render_template('test.html', **templateData)
 
 
-
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=80)
 
-def rotina():
-    if GPIO.event_detected(touch) == True:
-        if GPIO.input(luzBan) == 1:
-            GPIO.output(luzBan, GPIO.LOW)
-        else:
-            GPIO.output(luzBan, GPIO.HIGH)
+

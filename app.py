@@ -45,9 +45,15 @@ ser2 = serial.Serial(porta1, taxa)
 ser1.close()
 ser2.close()
 
+luzQ1 = 8
+luzQ2 = 10
+luzBan = 12
+
 GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
-GPIO.setup(8, GPIO.OUT)
+GPIO.setup(luzQ1, GPIO.OUT)
+GPIO.setup(luzQ2, GPIO.OUT)
+GPIO.setup(luzBan, GPIO.OUT)
 #GPIO.setup(2, GPIO.IN)
 # GPIO.add_event_detect(2, GPIO.RISING)
 
@@ -78,7 +84,7 @@ def alarmeQuarto1(action):
 
         templateData['ativadobuttonquarto1'] = False
         templateData['statusQuarto1'] = "Desativado"
-        GPIO.output(8, GPIO.LOW)
+
 
         #ser1.write("<>")
         #ser1.close()
@@ -86,7 +92,7 @@ def alarmeQuarto1(action):
         #ser1.open()
         templateData['ativadobuttonquarto1'] = True
         templateData['statusQuarto1'] = "Ativado"
-        GPIO.output(8, GPIO.HIGH)
+        #GPIO.output(8, GPIO.HIGH)
         #ser1.write("<y2>/n")
         #ser1.close()
 
@@ -97,33 +103,16 @@ def alarmeQuarto1(action):
 @app.route('/quarto1Lamp/<action>')
 def quartolamp(action):
     global  templateData
-    global ser1
-    # global ser2
-    ser1.close()
-    # ser2.close()
-    # time.sleep(0.2)
 
     if action == "off":
-        ser1.open()
-        ser1.write("<y10p3>")
-        ser1.close()
-        # time.sleep(0.5)
-        # ser1.open()
-        # ser1.write("<y10p3>")
-        # ser1.close()
         templateData['lampquarto1'] = False
         templateData['statusLampQuarto1'] = "Apagado"
+        GPIO.output(luzQ1, GPIO.LOW)
 
     if action == "on":
-        ser1.open()
-        ser1.write("<y1255p3>")
-        ser1.close()
-        # time.sleep(0.5)
-        # ser1.open()
-        # ser1.write("<y1255p3>")
-        # ser1.close()
         templateData['lampquarto1'] = True
         templateData['statusLampQuarto1'] = "Aceso"
+        GPIO.output(luzQ1, GPIO.HIGH)
 
 
     return render_template('test.html', **templateData)
@@ -150,9 +139,11 @@ def cozinhalamp(action):
         templateData['lampCozinha'] = False
         templateData['iluminacaoCozinha'] = "Apagado"
 
+
     if action == "on":
         templateData['lampCozinha'] = True
         templateData['iluminacaoCozinha'] = "Aceso"
+
 
     return render_template('test.html', **templateData)
 
@@ -183,14 +174,16 @@ def quarto2lamp(action):
     global  templateData
 
     if action == "off":
-        GPIO.output(18, GPIO.LOW)
+
         templateData['lampquarto2'] = False
         templateData['statusLampQuarto2'] = "Apagado"
+        GPIO.output(luzQ2, GPIO.LOW)
 
     if action == "on":
-        GPIO.output(18, GPIO.HIGH)
+
         templateData['lampquarto2'] = True
         templateData['statusLampQuarto2'] = "Aceso"
+        GPIO.output(luzQ2, GPIO.HIGH)
 
     return render_template('test.html', **templateData)
 
@@ -200,10 +193,12 @@ def banheirolamp(action):
     if action == "off":
         templateData['lampBanheiro'] = False
         templateData['statusLampBanheiro'] = "Apagado"
+        GPIO.output(luzBan, GPIO.LOW)
 
     if action == "on":
         templateData['lampBanheiro'] = True
         templateData['statusLampBanheiro'] = "Aceso"
+        GPIO.output(luzBan, GPIO.HIGH)
 
     return render_template('test.html', **templateData)
 

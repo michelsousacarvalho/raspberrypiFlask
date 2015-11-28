@@ -288,7 +288,7 @@ def salaLuminosidadeLamp(action):
     if action == "50":
         ser1.open()
         time.sleep(0.3)
-        ser1.write("<y100p11>")
+        ser1.write("<y1100p11>")
         time.sleep(0.3)
         ser1.close()
         templateData['dimmerSala'] = True
@@ -297,7 +297,7 @@ def salaLuminosidadeLamp(action):
     if action == "75":
         ser1.open()
         time.sleep(0.3)
-        ser1.write("<y170p11>")
+        ser1.write("<y1170p11>")
         time.sleep(0.3)
         ser1.close()
         templateData['dimmerSala'] = True
@@ -334,7 +334,7 @@ def portao(action):
     if action == "on":
         ser1.open()
         time.sleep(0.3)
-        ser1.write("<y2>")
+        ser1.write("<y2>\n")
         time.sleep(0.3)
         ser1.close()
         templateData['portao'] = True

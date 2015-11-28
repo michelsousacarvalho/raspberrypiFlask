@@ -35,11 +35,12 @@ templateData = {
 }
 
 
-vel1 = 9600
-disp1 = "/dev/ttyACM0"
+taxa = 9600
+porta0 = "/dev/ttyACM0"
+porta1 = "/dev/ttyACM1"
 
-ser1 = serial.Serial(disp1, vel1)
-ser2 = serial.Serial(disp1, vel1)
+ser1 = serial.Serial(porta0, taxa)
+ser2 = serial.Serial(porta1, taxa)
 
 ser1.close()
 ser2.close()

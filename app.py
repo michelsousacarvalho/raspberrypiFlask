@@ -69,7 +69,7 @@ templateData = {
         'garagemLamp':False,
         'statusGaragemLamp': "Apagado"
 
-        if (GPIO.event_detected(touch) == True):
+        if (GPIO.event_detected(touch) == 1):
 		# print('\n***MUDANCA DE ESTADO PORQUE***')
 		# print('     O BOTAO FOI ACIONADO')
 

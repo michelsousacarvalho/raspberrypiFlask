@@ -69,7 +69,7 @@ def rotina(templateData):
             GPIO.output(luzBan, GPIO.LOW)
         else:
             GPIO.output(luzBan, GPIO.HIGH)
-    return render_template***('test.html', **templateData)
+    return render_template('test.html', **templateData)
 
 
 

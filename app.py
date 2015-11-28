@@ -80,15 +80,19 @@ templateData = {
 @app.route('/')
 def index():
     if GPIO.event_detected(touch) == True:
-		    if GPIO.input(luzBan) == 1:
-                GPIO.output(luzBan, GPIO.LOW)
-            else:
-                GPIO.output(luzBan, GPIO.HIGH)
+        if GPIO.input(luzBan) == 1:
+            GPIO.output(luzBan, GPIO.LOW)
+        else:
+            GPIO.output(luzBan, GPIO.HIGH)
 
     return render_template('test.html', **templateData)
 
 
 @app.route('/test',  methods=['POST'])
+
+
+
+
 def test():
     command = request.form.get("a")
 

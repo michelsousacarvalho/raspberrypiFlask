@@ -76,6 +76,58 @@ def rotina():
             GPIO.output(luzBan, GPIO.HIGH)
     return render_template('test.html', **templateData)
 
+def temperatura():
+    global ser1
+    ser1.open()
+    time.sleep(0.5)
+    recebi = ""
+    serialStr = ""
+    indice = 0
+    i = 1
+
+    while (1):
+        recebi = ser1.read()
+        if(recebi == "<"):
+            serialStr += recebi
+            while (1):
+                recebi = ser1.read()
+                serialStr += recebi
+                if(recebi == ">"):
+                    print(serialStr)
+                    break
+        break
+
+
+    if (serialStr != ""):
+        print(serialStr)
+
+        indice = serialStr.find("t")
+
+        temp = ""
+        umid = ""
+
+        while(1):
+            indice += 1
+            if (serialStr[indice] != "u"):
+                temp += serialStr[indice]
+            else:
+                break
+        #print(temp)
+
+        while(1):
+            indice += 1
+            if (serialStr[indice] != ">"):
+                umid += serialStr[indice]
+            else:
+                break
+        #print(umid)
+        templateData['temperaturaQuarto2'] = temp  # pegar retorno serial
+    else:
+        templateData['temperaturaQuarto2'] = 0
+    time.sleep(0.5)
+    ser1.close()
+    time.sleep(0.3)
+
 
 
 @app.route('/')
@@ -191,7 +243,9 @@ def cozinhalamp(action):
 @app.route('/tempQuarto2')
 def tempQuarto2():
     global templateData
-    templateData['temperaturaQuarto2'] = 10  # pegar retorno serial
+    temperatura()
+
+    #templateData['temperaturaQuarto2'] = 10  # pegar retorno serial
 
     return rotina()
     # return render_template('test.html', **templateData)

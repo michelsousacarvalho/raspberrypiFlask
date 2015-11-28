@@ -79,7 +79,9 @@ def rotina():
 def temperatura():
     global ser1
     ser1.open()
-    time.sleep(0.5)
+    time.sleep(0.3)
+    ser1.write("<y3>")
+    time.sleep(0.1)
     recebi = ""
     serialStr = ""
     indice = 0
@@ -124,7 +126,7 @@ def temperatura():
         templateData['temperaturaQuarto2'] = temp  # pegar retorno serial
     else:
         templateData['temperaturaQuarto2'] = 0
-    time.sleep(0.5)
+    time.sleep(0.1)
     ser1.close()
     time.sleep(0.3)
 

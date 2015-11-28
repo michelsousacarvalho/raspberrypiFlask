@@ -75,8 +75,8 @@ def rotina(templateData):
 
 @app.route('/')
 def index():
-    rotina(templateData)
-    # return render_template('test.html', **templateData)
+    # rotina(templateData)
+    return render_template('test.html', **templateData)
 
 
 @app.route('/test', methods=['POST'])

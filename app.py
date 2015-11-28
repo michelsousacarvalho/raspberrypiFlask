@@ -33,7 +33,16 @@ GPIO.setup(touch, GPIO.IN)
 GPIO.add_event_detect(touch, GPIO.RISING)
 
 
+if GPIO.event_detected(touch) == 1:
+		# print('\n***MUDANCA DE ESTADO PORQUE***')
+		# print('     O BOTAO FOI ACIONADO')
 
+            if GPIO.input(luzBan) == 1:
+                GPIO.output(luzBan, GPIO.LOW)
+                # print('    FITA DE LED FOI APAGADA')
+            else:
+                GPIO.output(luzBan, GPIO.HIGH)
+                # print('    FITA DE LED FOI ACESA')
 
 
 
@@ -69,16 +78,7 @@ templateData = {
         'garagemLamp':False,
         'statusGaragemLamp': "Apagado"
 
-        if (GPIO.event_detected(touch) == 1):
-		# print('\n***MUDANCA DE ESTADO PORQUE***')
-		# print('     O BOTAO FOI ACIONADO')
 
-            if GPIO.input(luzBan) == 1:
-                GPIO.output(luzBan, GPIO.LOW)
-                # print('    FITA DE LED FOI APAGADA')
-            else:
-                GPIO.output(luzBan, GPIO.HIGH)
-                # print('    FITA DE LED FOI ACESA')
 
 }
 

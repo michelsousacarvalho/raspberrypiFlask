@@ -63,7 +63,8 @@ templateData = {
 
 }
 
-def rotina(**templateData):
+def rotina():
+    global templateData
     if GPIO.event_detected(touch) == True:
         if GPIO.input(luzBan) == 1:
             GPIO.output(luzBan, GPIO.LOW)
@@ -75,7 +76,7 @@ def rotina(**templateData):
 
 @app.route('/')
 def index():
-    # rotina(**templateData)
+    # rotina()
     return render_template('test.html', **templateData)
 
 
@@ -116,7 +117,7 @@ def alarmeQuarto1(action):
         # ser1.write("<y2>/n")
         # ser1.close()
 
-    rotina(**templateData)
+    rotina()
     # return render_template('test.html', **templateData)
 
 
@@ -134,7 +135,7 @@ def quartolamp(action):
         templateData['statusLampQuarto1'] = "Aceso"
         GPIO.output(luzQ1, GPIO.HIGH)
 
-    rotina(**templateData)
+    rotina()
     # return render_template('test.html', **templateData)
 
 
@@ -152,7 +153,7 @@ def alarmeCozinha(action):
         templateData['alarmeCozinha'] = True
         templateData['statusAlarmeCozinha'] = "Ativado"
 
-    rotina(**templateData)
+    rotina()
     # return render_template('test.html', **templateData)
 
 
@@ -167,7 +168,7 @@ def cozinhalamp(action):
         templateData['lampCozinha'] = True
         templateData['iluminacaoCozinha'] = "Aceso"
 
-    rotina(**templateData)
+    rotina()
     # return render_template('test.html', **templateData)
 
 
@@ -176,7 +177,7 @@ def tempQuarto2():
     global templateData
     templateData['temperaturaQuarto2'] = 10  # pegar retorno serial
 
-    rotina(**templateData)
+    rotina()
     # return render_template('test.html', **templateData)
 
 
@@ -191,7 +192,7 @@ def ventilador(action):
         templateData['ventilador'] = True
         templateData['ventiladorStatus'] = "Ligado"
 
-    rotina(**templateData)
+    rotina()
     # return render_template('test.html', **templateData)
 
 
@@ -209,7 +210,7 @@ def quarto2lamp(action):
         templateData['statusLampQuarto2'] = "Aceso"
         GPIO.output(luzQ2, GPIO.HIGH)
 
-    rotina(**templateData)
+    rotina()
     # return render_template('test.html', **templateData)
 
 
@@ -226,7 +227,7 @@ def banheirolamp(action):
         templateData['statusLampBanheiro'] = "Aceso"
         GPIO.output(luzBan, GPIO.HIGH)
 
-    rotina(**templateData)
+    rotina()
     # return render_template('test.html', **templateData)
 
 
@@ -241,7 +242,7 @@ def salaLamp(action):
         templateData['lampSala'] = True
         templateData['statusLampSala'] = "Aceso"
 
-    rotina(**templateData)
+    rotina()
     # return render_template('test.html', **templateData)
 
 
@@ -268,7 +269,7 @@ def salaLuminosidadeLamp(action):
         templateData['dimmerSala'] = True
         templateData['statusDimmerSala'] = "100%"
 
-    rotina(**templateData)
+    rotina()
     # return render_template('test.html', **templateData)
 
 
@@ -289,7 +290,7 @@ def portao(action):
         templateData['portao'] = True
         templateData['portaoStatus'] = "Aberto"
 
-    rotina(**templateData)
+    rotina()
     # return render_template('test.html', **templateData)
 
 
@@ -304,7 +305,7 @@ def garagemLamp(action):
         templateData['garagemLamp'] = True
         templateData['statusGaragemLamp'] = "Aceso"
 
-    rotina(**templateData)
+    rotina()
     # return render_template('test.html', **templateData)
 
 

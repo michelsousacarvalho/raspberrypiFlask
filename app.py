@@ -45,10 +45,10 @@ ser2 = serial.Serial(porta1, taxa)
 ser1.close()
 ser2.close()
 
-# GPIO.setmode(GPIO.BCM)
-# GPIO.setwarnings(False)
-# GPIO.setup(18, GPIO.OUT)
-# GPIO.setup(2, GPIO.IN)
+GPIO.setmode(GPIO.BOARD)
+GPIO.setwarnings(False)
+GPIO.setup(14, GPIO.OUT)
+#GPIO.setup(2, GPIO.IN)
 # GPIO.add_event_detect(2, GPIO.RISING)
 
 
@@ -78,12 +78,15 @@ def alarmeQuarto1(action):
 
         templateData['ativadobuttonquarto1'] = False
         templateData['statusQuarto1'] = "Desativado"
+        GPIO.output(12, GPIO.LOW)
+
         #ser1.write("<>")
         #ser1.close()
     if action == "on":
         #ser1.open()
         templateData['ativadobuttonquarto1'] = True
         templateData['statusQuarto1'] = "Ativado"
+        GPIO.output(12, GPIO.HIGH)
         #ser1.write("<y2>/n")
         #ser1.close()
 

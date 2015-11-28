@@ -31,12 +31,6 @@ GPIO.setup(luzBan, GPIO.OUT)
 GPIO.setup(touch, GPIO.IN)
 GPIO.add_event_detect(touch, GPIO.RISING)
 
-def rotina():
-    if GPIO.event_detected(touch) == True:
-        if GPIO.input(luzBan) == 1:
-            GPIO.output(luzBan, GPIO.LOW)
-        else:
-            GPIO.output(luzBan, GPIO.HIGH)
 
 
 
@@ -69,10 +63,20 @@ templateData = {
 
 }
 
+def rotina(templateData):
+    if GPIO.event_detected(touch) == True:
+        if GPIO.input(luzBan) == 1:
+            GPIO.output(luzBan, GPIO.LOW)
+        else:
+            GPIO.output(luzBan, GPIO.HIGH)
+    return render_template***('test.html', **templateData)
+
+
 
 @app.route('/')
 def index():
-    return render_template('test.html', **templateData)
+    rotina(templateData)
+    # return render_template('test.html', **templateData)
 
 
 @app.route('/test', methods=['POST'])
@@ -85,8 +89,8 @@ def test():
     ser1.close()
     print(stringcommand)
 
-    rotina()
-    return render_template('test.html', **templateData)
+    # rotina()
+    
 
 
 @app.route('/quarto1Alarme/<action>')
@@ -112,8 +116,8 @@ def alarmeQuarto1(action):
         # ser1.write("<y2>/n")
         # ser1.close()
 
-    rotina()
-    return render_template('test.html', **templateData)
+    rotina(templateData)
+    # return render_template('test.html', **templateData)
 
 
 @app.route('/quarto1Lamp/<action>')
@@ -130,8 +134,8 @@ def quartolamp(action):
         templateData['statusLampQuarto1'] = "Aceso"
         GPIO.output(luzQ1, GPIO.HIGH)
 
-    rotina()
-    return render_template('test.html', **templateData)
+    rotina(templateData)
+    # return render_template('test.html', **templateData)
 
 
 @app.route('/cozinhaAlarme/<action>')
@@ -148,8 +152,8 @@ def alarmeCozinha(action):
         templateData['alarmeCozinha'] = True
         templateData['statusAlarmeCozinha'] = "Ativado"
 
-    rotina()
-    return render_template('test.html', **templateData)
+    rotina(templateData)
+    # return render_template('test.html', **templateData)
 
 
 @app.route('/cozinhaLamp/<action>')
@@ -163,8 +167,8 @@ def cozinhalamp(action):
         templateData['lampCozinha'] = True
         templateData['iluminacaoCozinha'] = "Aceso"
 
-    rotina()
-    return render_template('test.html', **templateData)
+    rotina(templateData)
+    # return render_template('test.html', **templateData)
 
 
 @app.route('/tempQuarto2')
@@ -172,8 +176,8 @@ def tempQuarto2():
     global templateData
     templateData['temperaturaQuarto2'] = 10  # pegar retorno serial
 
-    rotina()
-    return render_template('test.html', **templateData)
+    rotina(templateData)
+    # return render_template('test.html', **templateData)
 
 
 @app.route('/ventilador/<action>')
@@ -187,8 +191,8 @@ def ventilador(action):
         templateData['ventilador'] = True
         templateData['ventiladorStatus'] = "Ligado"
 
-    rotina()
-    return render_template('test.html', **templateData)
+    rotina(templateData)
+    # return render_template('test.html', **templateData)
 
 
 @app.route('/quarto2Lamp/<action>')
@@ -205,8 +209,8 @@ def quarto2lamp(action):
         templateData['statusLampQuarto2'] = "Aceso"
         GPIO.output(luzQ2, GPIO.HIGH)
 
-    rotina()
-    return render_template('test.html', **templateData)
+    rotina(templateData)
+    # return render_template('test.html', **templateData)
 
 
 @app.route('/banheiroLamp/<action>')
@@ -222,8 +226,8 @@ def banheirolamp(action):
         templateData['statusLampBanheiro'] = "Aceso"
         GPIO.output(luzBan, GPIO.HIGH)
 
-    rotina()
-    return render_template('test.html', **templateData)
+    rotina(templateData)
+    # return render_template('test.html', **templateData)
 
 
 @app.route('/salaLamp/<action>')
@@ -237,8 +241,8 @@ def salaLamp(action):
         templateData['lampSala'] = True
         templateData['statusLampSala'] = "Aceso"
 
-    rotina()
-    return render_template('test.html', **templateData)
+    rotina(templateData)
+    # return render_template('test.html', **templateData)
 
 
 @app.route('/salaLuminosidaLamp/<action>')
@@ -264,8 +268,8 @@ def salaLuminosidadeLamp(action):
         templateData['dimmerSala'] = True
         templateData['statusDimmerSala'] = "100%"
 
-    rotina()
-    return render_template('test.html', **templateData)
+    rotina(templateData)
+    # return render_template('test.html', **templateData)
 
 
 @app.route('/portao/<action>')
@@ -285,8 +289,8 @@ def portao(action):
         templateData['portao'] = True
         templateData['portaoStatus'] = "Aberto"
 
-    rotina()
-    return render_template('test.html', **templateData)
+    rotina(templateData)
+    # return render_template('test.html', **templateData)
 
 
 @app.route('/garageLamp/<action>')
@@ -300,8 +304,8 @@ def garagemLamp(action):
         templateData['garagemLamp'] = True
         templateData['statusGaragemLamp'] = "Aceso"
 
-    rotina()
-    return render_template('test.html', **templateData)
+    rotina(templateData)
+    # return render_template('test.html', **templateData)
 
 
 if __name__ == '__main__':

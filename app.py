@@ -83,10 +83,6 @@ def index():
 
 
 @app.route('/test',  methods=['POST'])
-
-
-
-
 def test():
     command = request.form.get("a")
 
@@ -303,7 +299,8 @@ def garagemLamp(action):
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=80)
-    if GPIO.event_detected(touch) == True:
+
+if GPIO.event_detected(touch) == True:
         if GPIO.input(luzBan) == 1:
             GPIO.output(luzBan, GPIO.LOW)
         else:

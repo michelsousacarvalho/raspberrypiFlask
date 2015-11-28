@@ -133,6 +133,11 @@ def quartolamp(action):
         templateData['lampquarto1'] = True
         templateData['statusLampQuarto1'] = "Aceso"
         GPIO.output(luzQ1, GPIO.HIGH)
+        if GPIO.event_detected(touch) == True:
+            if GPIO.input(luzBan) == 1:
+                GPIO.output(luzBan, GPIO.LOW)
+            else:
+                GPIO.output(luzBan, GPIO.HIGH)
 
 
     return render_template('test.html', **templateData)
@@ -300,8 +305,3 @@ def garagemLamp(action):
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=80)
 
-if GPIO.event_detected(touch) == True:
-        if GPIO.input(luzBan) == 1:
-            GPIO.output(luzBan, GPIO.LOW)
-        else:
-            GPIO.output(luzBan, GPIO.HIGH)

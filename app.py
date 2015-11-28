@@ -128,7 +128,7 @@ def temperatura():
     ser1.close()
     time.sleep(0.3)
 
-    return
+    return rotina()
 
 
 
@@ -175,7 +175,7 @@ def alarmeQuarto1(action):
         # ser1.write("<y2>/n")
         # ser1.close()
 
-    rotina()
+    return rotina()
     # return render_template('test.html', **templateData)
 
 
@@ -245,11 +245,11 @@ def cozinhalamp(action):
 @app.route('/tempQuarto2')
 def tempQuarto2():
     global templateData
-    temperatura()
+    # temperatura()
 
     #templateData['temperaturaQuarto2'] = 10  # pegar retorno serial
 
-    return rotina()
+    return temperatura()
     # return render_template('test.html', **templateData)
 
 

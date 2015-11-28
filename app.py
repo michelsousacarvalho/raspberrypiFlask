@@ -70,7 +70,7 @@ def rotina():
             GPIO.output(luzBan, GPIO.LOW)
         else:
             GPIO.output(luzBan, GPIO.HIGH)
-    return render_template('test.html', **templateData)
+    # return render_template('test.html', **templateData)
 
 
 
@@ -136,7 +136,7 @@ def quartolamp(action):
         GPIO.output(luzQ1, GPIO.HIGH)
 
     rotina()
-    # return render_template('test.html', **templateData)
+    return render_template('test.html', **templateData)
 
 
 @app.route('/cozinhaAlarme/<action>')

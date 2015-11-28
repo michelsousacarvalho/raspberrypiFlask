@@ -164,11 +164,23 @@ def alarmeCozinha(action):
 @app.route('/cozinhaLamp/<action>')
 def cozinhalamp(action):
     global templateData
+    global ser1
+
     if action == "off":
+        ser1.open()
+        time.sleep(0.3)
+        ser1.write("<y10p10>")
+        time.sleep(0.3)
+        ser1.close()
         templateData['lampCozinha'] = False
         templateData['iluminacaoCozinha'] = "Apagado"
 
     if action == "on":
+        ser1.open()
+        time.sleep(0.3)
+        ser1.write("<y1255p10>")
+        time.sleep(0.3)
+        ser1.close()
         templateData['lampCozinha'] = True
         templateData['iluminacaoCozinha'] = "Aceso"
 

@@ -385,12 +385,16 @@ def portao(action):
         time.sleep(0.3)
         ser1.write("<y2>\n")
         time.sleep(0.3)
+        ser1.write("<y2>\n")
+        time.sleep(0.3)
         ser1.close()
         templateData['portao'] = False
         templateData['portaoStatus'] = "Fechado"
 
     if action == "on":
         ser1.open()
+        time.sleep(0.3)
+        ser1.write("<y2>\n")
         time.sleep(0.3)
         ser1.write("<y2>\n")
         time.sleep(0.3)

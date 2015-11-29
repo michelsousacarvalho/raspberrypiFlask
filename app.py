@@ -125,7 +125,7 @@ def monitoramento():
     time.sleep(0.1)
     ser0.close()
 
-    return return render_template('test.html', **templateData)
+    return render_template('test.html', **templateData)
 
 
 

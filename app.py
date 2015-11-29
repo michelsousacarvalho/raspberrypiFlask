@@ -405,11 +405,23 @@ def portao(action):
 @app.route('/garageLamp/<action>')
 def garagemLamp(action):
     global templateData
+    global ser1
+
     if action == "off":
+        ser1.open()
+        time.sleep(0.3)
+        ser1.write("<y10p9>")
+        time.sleep(0.3)
+        ser1.close()
         templateData['garagemLamp'] = False
         templateData['statusGaragemLamp'] = "Apagado"
 
     if action == "on":
+        ser1.open()
+        time.sleep(0.3)
+        ser1.write("<y1255p9>")
+        time.sleep(0.3)
+        ser1.close()
         templateData['garagemLamp'] = True
         templateData['statusGaragemLamp'] = "Aceso"
 

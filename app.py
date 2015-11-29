@@ -143,9 +143,9 @@ def rotina():
             templateData['statusLampBanheiro'] = "Aceso"
             GPIO.output(luzBan, GPIO.HIGH)
 
-    return monitoramento()
+    # return monitoramento()
 
-    # return render_template('test.html', **templateData)
+    return render_template('test.html', **templateData)
 
 
 

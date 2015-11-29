@@ -383,7 +383,7 @@ def portao(action):
     if action == "off":
         ser1.open()
         time.sleep(0.3)
-        ser1.write("<y2>")
+        ser1.write("<y2>\n")
         time.sleep(0.3)
         ser1.close()
         templateData['portao'] = False

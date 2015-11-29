@@ -65,67 +65,67 @@ templateData = {
 
 }
 
-def monitoramento():
-    global templateData
-    global ser0
-    recebi = ""
-    serialStr = ""
-    indice = 0
-    i = 1
-    pir = ""
-    ldr = ""
-    chama = ""
-    ser0.open()
-    time.sleep(0.3)
-    ser0.write("<x1>\n")
-
-    # while (1):
-    #     recebi = ser0.read()
-    #     if (recebi == "<"):
-    #         serialStr += recebi
-    #         while (1):
-    #             recebi = ser1.read()
-    #             serialStr += recebi
-    #             if (recebi == ">"):
-    #                 print(serialStr)
-    #                 break
-    #     break
-    serialStr = ser0.readline()
-
-    if (serialStr != ""):
-        #print(serialStr)
-        indice = serialStr.find("L")
-        while (1):
-            indice += 1
-            if (serialStr[indice] != "p"):
-                ldr += serialStr[indice]
-            else:
-                break
-        # print(temp)
-
-        while (1):
-            indice += 1
-            if (serialStr[indice] != "c"):
-                pir += serialStr[indice]
-            else:
-                break
-
-        while (1):
-            indice += 1
-            if (serialStr[indice] != ">"):
-                chama += serialStr[indice]
-            else:
-                break
-
-    if int(ldr) > 600:
-        GPIO.output(fitaLed, GPIO.HIGH)
-    else:
-        GPIO.output(fitaLed, GPIO.LOW)
-
-    time.sleep(0.1)
-    ser0.close()
-
-    return render_template('test.html', **templateData)
+# def monitoramento():
+#     global templateData
+#     global ser0
+#     recebi = ""
+#     serialStr = ""
+#     indice = 0
+#     i = 1
+#     pir = ""
+#     ldr = ""
+#     chama = ""
+#     ser0.open()
+#     time.sleep(0.3)
+#     ser0.write("<x1>\n")
+#
+#     # while (1):
+#     #     recebi = ser0.read()
+#     #     if (recebi == "<"):
+#     #         serialStr += recebi
+#     #         while (1):
+#     #             recebi = ser1.read()
+#     #             serialStr += recebi
+#     #             if (recebi == ">"):
+#     #                 print(serialStr)
+#     #                 break
+#     #     break
+#     serialStr = ser0.readline()
+#
+#     if (serialStr != ""):
+#         #print(serialStr)
+#         indice = serialStr.find("L")
+#         while (1):
+#             indice += 1
+#             if (serialStr[indice] != "p"):
+#                 ldr += serialStr[indice]
+#             else:
+#                 break
+#         # print(temp)
+#
+#         while (1):
+#             indice += 1
+#             if (serialStr[indice] != "c"):
+#                 pir += serialStr[indice]
+#             else:
+#                 break
+#
+#         while (1):
+#             indice += 1
+#             if (serialStr[indice] != ">"):
+#                 chama += serialStr[indice]
+#             else:
+#                 break
+#
+#     if int(ldr) > 600:
+#         GPIO.output(fitaLed, GPIO.HIGH)
+#     else:
+#         GPIO.output(fitaLed, GPIO.LOW)
+#
+#     time.sleep(0.1)
+#     ser0.close()
+#
+#     return render_template('test.html', **templateData)
 
 
 

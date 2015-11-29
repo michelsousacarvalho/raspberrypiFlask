@@ -74,7 +74,7 @@ def rotina():
         if GPIO.input(luzBan) == 1:
             templateData['lampBanheiro'] = False
             templateData['statusLampBanheiro'] = "Apagado"
-            GPI O.output(luzBan, GPIO.LOW)
+            GPIO.output(luzBan, GPIO.LOW)
         else:
             templateData['lampBanheiro'] = True
             templateData['statusLampBanheiro'] = "Aceso"

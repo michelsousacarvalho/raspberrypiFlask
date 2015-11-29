@@ -65,24 +65,6 @@ templateData = {
 
 }
 
-
-def rotina():
-    global templateData
-
-
-    if GPIO.event_detected(touch) == True:
-        if GPIO.input(luzBan) == 1:
-            templateData['lampBanheiro'] = False
-            templateData['statusLampBanheiro'] = "Apagado"
-            GPIO.output(luzBan, GPIO.LOW)
-        else:
-            templateData['lampBanheiro'] = True
-            templateData['statusLampBanheiro'] = "Aceso"
-            GPIO.output(luzBan, GPIO.HIGH)
-
-    return render_template('test.html', **templateData)
-
-
 def monitoramento():
     global ser0
     recebi = ""
@@ -94,19 +76,20 @@ def monitoramento():
     chama = ""
     ser0.open()
     time.sleep(0.3)
-    ser0.write("<x1>")
+    ser0.write("<x1>\n")
 
-    while (1):
-        recebi = ser0.read()
-        if (recebi == "<"):
-            serialStr += recebi
-            while (1):
-                recebi = ser1.read()
-                serialStr += recebi
-                if (recebi == ">"):
-                    print(serialStr)
-                    break
-        break
+    # while (1):
+    #     recebi = ser0.read()
+    #     if (recebi == "<"):
+    #         serialStr += recebi
+    #         while (1):
+    #             recebi = ser1.read()
+    #             serialStr += recebi
+    #             if (recebi == ">"):
+    #                 print(serialStr)
+    #                 break
+    #     break
+    serialStr = ser0.readline()
 
     if (serialStr != ""):
         #print(serialStr)
@@ -142,6 +125,29 @@ def monitoramento():
     ser0.close()
 
     return True
+
+
+
+def rotina():
+    global templateData
+
+
+    if GPIO.event_detected(touch) == True:
+        if GPIO.input(luzBan) == 1:
+            templateData['lampBanheiro'] = False
+            templateData['statusLampBanheiro'] = "Apagado"
+            GPIO.output(luzBan, GPIO.LOW)
+        else:
+            templateData['lampBanheiro'] = True
+            templateData['statusLampBanheiro'] = "Aceso"
+            GPIO.output(luzBan, GPIO.HIGH)
+
+    monitoramento()
+
+    return render_template('test.html', **templateData)
+
+
+
 
 
 

@@ -66,6 +66,7 @@ templateData = {
 }
 
 def monitoramento():
+    global templateData
     global ser0
     recebi = ""
     serialStr = ""
@@ -124,7 +125,7 @@ def monitoramento():
     time.sleep(0.1)
     ser0.close()
 
-    return True
+    return return render_template('test.html', **templateData)
 
 
 
@@ -142,9 +143,9 @@ def rotina():
             templateData['statusLampBanheiro'] = "Aceso"
             GPIO.output(luzBan, GPIO.HIGH)
 
-    monitoramento()
+    return monitoramento()
 
-    return render_template('test.html', **templateData)
+    # return render_template('test.html', **templateData)
 
 
 

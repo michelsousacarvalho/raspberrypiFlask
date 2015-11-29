@@ -11,12 +11,9 @@ porta1 = "/dev/ttyACM1"
 ser0 = serial.Serial(porta0, taxa)
 ser1 = serial.Serial(porta1, taxa)
 
-time.sleep(0.3)
 ser0.close()
 ser1.close()
 
-vent = 3 # Pino fisico 3
-fitaLed = 5 # Pino fisico 5
 luzQ1 = 8  # Pino fisico 8
 luzQ2 = 10  # Pino fisico 10
 luzBan = 12  # Pino fisico 12
@@ -26,8 +23,6 @@ GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
 
 # declara saidas da GPIO
-GPIO.setup(vent, GPIO.OUT)
-GPIO.setup(fitaLed, GPIO.OUT)
 GPIO.setup(luzQ1, GPIO.OUT)
 GPIO.setup(luzQ2, GPIO.OUT)
 GPIO.setup(luzBan, GPIO.OUT)
@@ -35,6 +30,9 @@ GPIO.setup(luzBan, GPIO.OUT)
 # declara entradas da GPIO
 GPIO.setup(touch, GPIO.IN)
 GPIO.add_event_detect(touch, GPIO.RISING)
+
+
+
 
 app = Flask(__name__)
 
@@ -65,74 +63,8 @@ templateData = {
 
 }
 
-# def monitoramento():
-#     global templateData
-#     global ser0
-#     recebi = ""
-#     serialStr = ""
-#     indice = 0
-#     i = 1
-#     pir = ""
-#     ldr = ""
-#     chama = ""
-#     ser0.open()
-#     time.sleep(0.3)
-#     ser0.write("<x1>\n")
-#
-#     # while (1):
-#     #     recebi = ser0.read()
-#     #     if (recebi == "<"):
-#     #         serialStr += recebi
-#     #         while (1):
-#     #             recebi = ser1.read()
-#     #             serialStr += recebi
-#     #             if (recebi == ">"):
-#     #                 print(serialStr)
-#     #                 break
-#     #     break
-#     serialStr = ser0.readline()
-#
-#     if (serialStr != ""):
-#         #print(serialStr)
-#         indice = serialStr.find("L")
-#         while (1):
-#             indice += 1
-#             if (serialStr[indice] != "p"):
-#                 ldr += serialStr[indice]
-#             else:
-#                 break
-#         # print(temp)
-#
-#         while (1):
-#             indice += 1
-#             if (serialStr[indice] != "c"):
-#                 pir += serialStr[indice]
-#             else:
-#                 break
-#
-#         while (1):
-#             indice += 1
-#             if (serialStr[indice] != ">"):
-#                 chama += serialStr[indice]
-#             else:
-#                 break
-#
-#     if int(ldr) > 600:
-#         GPIO.output(fitaLed, GPIO.HIGH)
-#     else:
-#         GPIO.output(fitaLed, GPIO.LOW)
-#
-#     time.sleep(0.1)
-#     ser0.close()
-#
-#     return render_template('test.html', **templateData)
-
-
-
 def rotina():
     global templateData
-
-
     if GPIO.event_detected(touch) == True:
         if GPIO.input(luzBan) == 1:
             templateData['lampBanheiro'] = False
@@ -142,15 +74,7 @@ def rotina():
             templateData['lampBanheiro'] = True
             templateData['statusLampBanheiro'] = "Aceso"
             GPIO.output(luzBan, GPIO.HIGH)
-
-    # return monitoramento()
-
     return render_template('test.html', **templateData)
-
-
-
-
-
 
 def temperatura():
     global ser1
@@ -162,43 +86,43 @@ def temperatura():
     serialStr = ""
     indice = 0
     i = 1
-    temp = ""
-    umid = ""
-
 
     while (1):
         recebi = ser1.read()
-        if (recebi == "<"):
+        if(recebi == "<"):
             serialStr += recebi
             while (1):
                 recebi = ser1.read()
                 serialStr += recebi
-                if (recebi == ">"):
+                if(recebi == ">"):
                     print(serialStr)
                     break
         break
+
 
     if (serialStr != ""):
         print(serialStr)
 
         indice = serialStr.find("t")
 
+        temp = ""
+        umid = ""
 
-        while (1):
+        while(1):
             indice += 1
             if (serialStr[indice] != "u"):
                 temp += serialStr[indice]
             else:
                 break
-        # print(temp)
+        #print(temp)
 
-        while (1):
+        while(1):
             indice += 1
             if (serialStr[indice] != ">"):
                 umid += serialStr[indice]
             else:
                 break
-        # print(umid)
+        #print(umid)
         templateData['temperaturaQuarto2'] = temp  # pegar retorno serial
     else:
         templateData['temperaturaQuarto2'] = 0
@@ -207,6 +131,7 @@ def temperatura():
     time.sleep(0.3)
 
     return rotina()
+
 
 
 @app.route('/')
@@ -226,6 +151,7 @@ def test():
     print(stringcommand)
 
     # rotina()
+
 
 
 @app.route('/quarto1Alarme/<action>')
@@ -323,7 +249,7 @@ def tempQuarto2():
     global templateData
     # temperatura()
 
-    # templateData['temperaturaQuarto2'] = 10  # pegar retorno serial
+    #templateData['temperaturaQuarto2'] = 10  # pegar retorno serial
 
     return temperatura()
     # return render_template('test.html', **templateData)
@@ -335,12 +261,11 @@ def ventilador(action):
     if action == "off":
         templateData['ventilador'] = False
         templateData['ventiladorStatus'] = "Desligado"
-        GPIO.output(vent, GPIO.LOW)
 
     if action == "on":
         templateData['ventilador'] = True
         templateData['ventiladorStatus'] = "Ligado"
-        GPIO.output(vent, GPIO.HIGH)
+
     return rotina()
     # return render_template('test.html', **templateData)
 
@@ -454,6 +379,7 @@ def portao(action):
     global templateData
     global ser1
 
+
     if action == "off":
         ser1.open()
         time.sleep(0.3)
@@ -509,3 +435,6 @@ def garagemLamp(action):
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=80)
+
+
+    

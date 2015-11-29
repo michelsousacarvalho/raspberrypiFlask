@@ -68,20 +68,23 @@ templateData = {
 
 def rotina():
     global templateData
-    global ser0
+
 
     if GPIO.event_detected(touch) == True:
         if GPIO.input(luzBan) == 1:
             templateData['lampBanheiro'] = False
             templateData['statusLampBanheiro'] = "Apagado"
-            GPIO.output(luzBan, GPIO.LOW)
+            GPI O.output(luzBan, GPIO.LOW)
         else:
             templateData['lampBanheiro'] = True
             templateData['statusLampBanheiro'] = "Aceso"
             GPIO.output(luzBan, GPIO.HIGH)
 
+    return render_template('test.html', **templateData)
 
 
+def monitoramento():
+    global ser0
     recebi = ""
     serialStr = ""
     indice = 0
@@ -135,9 +138,11 @@ def rotina():
     else:
         GPIO.output(fitaLed, GPIO.LOW)
 
-    
+    time.sleep(0.1)
+    ser0.close()
 
-    return render_template('test.html', **templateData)
+    return True
+
 
 
 def temperatura():

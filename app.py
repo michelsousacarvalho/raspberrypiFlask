@@ -14,6 +14,8 @@ ser1 = serial.Serial(porta1, taxa)
 ser0.close()
 ser1.close()
 
+vent = 3 # Pino fisico 3
+fitaLed = 5 # Pino fisico 5
 luzQ1 = 8  # Pino fisico 8
 luzQ2 = 10  # Pino fisico 10
 luzBan = 12  # Pino fisico 12
@@ -23,6 +25,8 @@ GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
 
 # declara saidas da GPIO
+GPIO.setup(vent, GPIO.OUT)
+GPIO.setup(fitaLed, GPIO.OUT)
 GPIO.setup(luzQ1, GPIO.OUT)
 GPIO.setup(luzQ2, GPIO.OUT)
 GPIO.setup(luzBan, GPIO.OUT)
@@ -244,10 +248,12 @@ def ventilador(action):
     if action == "off":
         templateData['ventilador'] = False
         templateData['ventiladorStatus'] = "Desligado"
+        GPIO.output(vent, GPIO.LOW)
 
     if action == "on":
         templateData['ventilador'] = True
         templateData['ventiladorStatus'] = "Ligado"
+        GPIO.output(vent, GPIO.HIGH)
 
     return rotina()
     # return render_template('test.html', **templateData)
@@ -338,7 +344,7 @@ def salaLuminosidadeLamp(action):
     if action == "75":
         ser1.open()
         time.sleep(0.3)
-        ser1.write("<y1120p11>")
+        ser1.write("<y1150p11>")
         time.sleep(0.3)
         ser1.close()
         templateData['dimmerSala'] = True
@@ -402,6 +408,7 @@ def garagemLamp(action):
         ser1.close()
         templateData['garagemLamp'] = False
         templateData['statusGaragemLamp'] = "Apagado"
+        GPIO.output(fitaLed, GPIO.LOW)
 
     if action == "on":
         ser1.open()
@@ -411,6 +418,7 @@ def garagemLamp(action):
         ser1.close()
         templateData['garagemLamp'] = True
         templateData['statusGaragemLamp'] = "Aceso"
+        GPIO.output(fitaLed, GPIO.HIGH)
 
     return rotina()
     # return render_template('test.html', **templateData)

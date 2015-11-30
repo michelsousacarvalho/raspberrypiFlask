@@ -31,9 +31,6 @@ GPIO.setup(luzBan, GPIO.OUT)
 GPIO.setup(touch, GPIO.IN)
 GPIO.add_event_detect(touch, GPIO.RISING)
 
-
-
-
 app = Flask(__name__)
 
 templateData = {
@@ -76,61 +73,61 @@ def rotina():
             GPIO.output(luzBan, GPIO.HIGH)
     return render_template('test.html', **templateData)
 
-def temperatura():
-    global ser1
-    ser1.open()
-    time.sleep(0.3)
-    ser1.write("<y3>\n")
-    # time.sleep(0.1)
-    recebi = ""
-    serialStr = ""
-    indice = 0
-    i = 1
-
-    while (1):
-        recebi = ser1.read()
-        if(recebi == "<"):
-            serialStr += recebi
-            while (1):
-                recebi = ser1.read()
-                serialStr += recebi
-                if(recebi == ">"):
-                    print(serialStr)
-                    break
-        break
-
-
-    if (serialStr != ""):
-        print(serialStr)
-
-        indice = serialStr.find("t")
-
-        temp = ""
-        umid = ""
-
-        while(1):
-            indice += 1
-            if (serialStr[indice] != "u"):
-                temp += serialStr[indice]
-            else:
-                break
-        #print(temp)
-
-        while(1):
-            indice += 1
-            if (serialStr[indice] != ">"):
-                umid += serialStr[indice]
-            else:
-                break
-        #print(umid)
-        templateData['temperaturaQuarto2'] = temp  # pegar retorno serial
-    else:
-        templateData['temperaturaQuarto2'] = 0
-    time.sleep(0.1)
-    ser1.close()
-    time.sleep(0.3)
-
-    return rotina()
+# def temperatura():
+#     global ser1
+#     ser1.open()
+#     time.sleep(0.3)
+#     ser1.write("<y3>\n")
+#     # time.sleep(0.1)
+#     recebi = ""
+#     serialStr = ""
+#     indice = 0
+#     i = 1
+#
+#     while (1):
+#         recebi = ser1.read()
+#         if(recebi == "<"):
+#             serialStr += recebi
+#             while (1):
+#                 recebi = ser1.read()
+#                 serialStr += recebi
+#                 if(recebi == ">"):
+#                     print(serialStr)
+#                     break
+#         break
+#
+#
+#     if (serialStr != ""):
+#         print(serialStr)
+#
+#         indice = serialStr.find("t")
+#
+#         temp = ""
+#         umid = ""
+#
+#         while(1):
+#             indice += 1
+#             if (serialStr[indice] != "u"):
+#                 temp += serialStr[indice]
+#             else:
+#                 break
+#         #print(temp)
+#
+#         while(1):
+#             indice += 1
+#             if (serialStr[indice] != ">"):
+#                 umid += serialStr[indice]
+#             else:
+#                 break
+#         #print(umid)
+#         templateData['temperaturaQuarto2'] = temp  # pegar retorno serial
+#     else:
+#         templateData['temperaturaQuarto2'] = 0
+#     time.sleep(0.1)
+#     ser1.close()
+#     time.sleep(0.3)
+#
+#     return rotina()
 
 
 
@@ -157,25 +154,13 @@ def test():
 @app.route('/quarto1Alarme/<action>')
 def alarmeQuarto1(action):
     global templateData
-    global ser1
-    ser1.close()
-
     if action == "off":
-        # ser1.open()
-
         templateData['ativadobuttonquarto1'] = False
         templateData['statusQuarto1'] = "Desativado"
 
-
-        # ser1.write("<>")
-        # ser1.close()
     if action == "on":
-        # ser1.open()
         templateData['ativadobuttonquarto1'] = True
         templateData['statusQuarto1'] = "Ativado"
-        # GPIO.output(8, GPIO.HIGH)
-        # ser1.write("<y2>/n")
-        # ser1.close()
 
     return rotina()
     # return render_template('test.html', **templateData)
@@ -205,8 +190,6 @@ def alarmeCozinha(action):
     global ser1
 
     if action == "off":
-        ser1.open()
-
         templateData['alarmeCozinha'] = False
         templateData['statusAlarmeCozinha'] = "Desativado"
     if action == "on":
@@ -251,9 +234,9 @@ def tempQuarto2():
 
     #templateData['temperaturaQuarto2'] = 10  # pegar retorno serial
 
-    return temperatura()
+    # return temperatura()
     # return render_template('test.html', **templateData)
-
+    return rotina()
 
 @app.route('/ventilador/<action>')
 def ventilador(action):
@@ -437,4 +420,3 @@ if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=80)
 
 
-    
